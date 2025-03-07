@@ -7,6 +7,7 @@ import torch
 from transformers import pipeline
 import librosa
 from huggingface_hub import login
+import uvicorn
 
 #get token
 TOKEN = os.getenv("TOKEN")
@@ -59,3 +60,8 @@ async def transcribe_audio(file: UploadFile = File(...), res: Response = Respons
         print(f"Error during transcription: {str(error)}")
         res.status_code = 500
         return {"error": "Internal Server Error"}
+
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))  # Render assigns a port via an env variable
+    uvicorn.run(app, host="0.0.0.0", port=port)

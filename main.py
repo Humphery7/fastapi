@@ -11,8 +11,10 @@ import uvicorn
 
 #get token
 TOKEN = os.getenv("TOKEN")
-login(token=TOKEN)
-
+if TOKEN:
+    login(token=TOKEN)
+else:
+    print("No TOKEN found. Make sure to set it in environment variables.")
 
 # Initialize FastAPI app
 app = FastAPI()
